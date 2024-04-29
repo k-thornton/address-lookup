@@ -13,6 +13,13 @@ const PORT = process.env.PORT || 3001;
 const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
 const ALCHEMY_API_KEY_POLYGON = process.env.ALCHEMY_API_KEY_POLYGON;
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
+
 async function getTransfers(chain, address) {
     const apiKey = chain === 'polygon' ? ALCHEMY_API_KEY_POLYGON : ALCHEMY_API_KEY;
     const response = await axios.post(`https://${chain}-mainnet.alchemyapi.io/v2/${apiKey}`, {
