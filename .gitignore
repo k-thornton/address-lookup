@@ -1,0 +1,58 @@
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm/
+
+# Environment variables file (if used)
+.env
+
+# Compiled binary addons (if any)
+/build/
+
+# Log files
+logs/
+*.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Editor-specific files
+.idea/
+
+# Generated files
+dist/
+*.pem
+output_files
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# .env file should not be committed
+.env
+
+# Python cache and distribution
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+*.pyc
+__pycache__/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+*/build.zip
+backend/src/styles/output.css

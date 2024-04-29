@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Transfer Lookup</title>
+</head>
+<body>
+    <h1>Asset Transfer Lookup</h1>
+    <input type="text" id="addressInput" placeholder="Enter Address Here">
+    <button onclick="fetchEthTransfers()">Download Ethereum Transfers</button>
+    <button onclick="fetchPolygonTransfers()">Download Polygon Transfers</button>
+    <button onclick="fetchBoth()">Download All Transfers</button>
+    <pre id="output"></pre>
+
+    <script>
+        function fetchEthTransfers() {
+            const address = document.getElementById('addressInput').value;
+            fetch(`/asset-transfers/eth/${address}`)
+                .then(response => {
+                    if (response.ok) return response.blob();
+                    throw new Error('Network response was not ok.');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = "eth-transfers.csv";
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function fetchPolygonTransfers() {
+            const address = document.getElementById('addressInput').value;
+            fetch(`/asset-transfers/polygon/${address}`)
+                .then(response => {
+                    if (response.ok) return response.blob();
+                    throw new Error('Network response was not ok.');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = "polygon-transfers.csv";
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function fetchBoth() {
+            const address = document.getElementById('addressInput').value;
+            fetch(`/asset-transfers/${address}`)
+                .then(response => {
+                    if (response.ok) return response.blob();
+                    throw new Error('Network response was not ok.');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = "combined-transfers.csv";
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
