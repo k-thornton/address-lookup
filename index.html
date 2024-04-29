@@ -8,18 +8,28 @@
 <body>
     <h1>Asset Transfer Lookup</h1>
     <input type="text" id="addressInput" placeholder="Enter Address Here">
-    <button onclick="fetchEthTransfers()">Get Ethereum Transfers</button>
-    <button onclick="fetchPolygonTransfers()">Get Polygon Transfers</button>
-    <button onclick="fetchBoth()">Get All Transfers</button>
+    <button onclick="fetchEthTransfers()">Download Ethereum Transfers</button>
+    <button onclick="fetchPolygonTransfers()">Download Polygon Transfers</button>
+    <button onclick="fetchBoth()">Download All Transfers</button>
     <pre id="output"></pre>
 
     <script>
         function fetchEthTransfers() {
             const address = document.getElementById('addressInput').value;
             fetch(`/asset-transfers/eth/${address}`)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('output').textContent = data;
+                .then(response => {
+                    if (response.ok) return response.blob();
+                    throw new Error('Network response was not ok.');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = "eth-transfers.csv";
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -27,9 +37,19 @@
         function fetchPolygonTransfers() {
             const address = document.getElementById('addressInput').value;
             fetch(`/asset-transfers/polygon/${address}`)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('output').textContent = data;
+                .then(response => {
+                    if (response.ok) return response.blob();
+                    throw new Error('Network response was not ok.');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = "polygon-transfers.csv";
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -37,9 +57,19 @@
         function fetchBoth() {
             const address = document.getElementById('addressInput').value;
             fetch(`/asset-transfers/${address}`)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('output').textContent = data;
+                .then(response => {
+                    if (response.ok) return response.blob();
+                    throw new Error('Network response was not ok.');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = "combined-transfers.csv";
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
                 })
                 .catch(error => console.error('Error:', error));
         }

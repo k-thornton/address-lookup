@@ -45,11 +45,11 @@ app.get('/asset-transfers/eth/:address', async (req, res) => {
         const transfers = await getTransfers('polygon', address);
         const fields = ['hash', 'from', 'to', 'value', 'asset', 'category']; // Specify desired fields
         const csv = parse(transfers, { fields });
-        res.header('Content-Type', 'text/plain');
-        res.send(csv);
-        // res.header('Content-Type', 'text/csv');
-        // res.attachment("transfers.csv");
+        // res.header('Content-Type', 'text/plain');
         // res.send(csv);
+        res.header('Content-Type', 'text/csv');
+        res.attachment("transfers.csv");
+        res.send(csv);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
@@ -61,11 +61,11 @@ app.get('/asset-transfers/polygon/:address', async (req, res) => {
         const transfers = await getTransfers('polygon', address);
         const fields = ['hash', 'from', 'to', 'value', 'asset', 'category']; // Specify desired fields
         const csv = parse(transfers, { fields });
-        res.header('Content-Type', 'text/plain');
-        res.send(csv);
-        // res.header('Content-Type', 'text/csv');
-        // res.attachment("transfers.csv");
+        // res.header('Content-Type', 'text/plain');
         // res.send(csv);
+        res.header('Content-Type', 'text/csv');
+        res.attachment("transfers.csv");
+        res.send(csv);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
@@ -99,11 +99,11 @@ app.get('/asset-transfers/:address', async (req, res) => {
         // Parse combined transfers to CSV
         const csv = parse(combinedTransfers, { fields });
         console.log(csv);
-        res.header('Content-Type', 'text/plain');
-        res.send(csv);
-        // res.header('Content-Type', 'text/csv');
-        // res.attachment("transfers.csv");
+        // res.header('Content-Type', 'text/plain');
         // res.send(csv);
+        res.header('Content-Type', 'text/csv');
+        res.attachment("transfers.csv");
+        res.send(csv);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
